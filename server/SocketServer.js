@@ -51,7 +51,22 @@ module.exports = function(serverUrl, serverPort) {
     }
 
     function sendMessageToId(id, msg) {
-        connections[id].send(msg);
+
+        try {
+            connections[id].send(msg, function(err) {
+                if(err) {
+                    console.log("\nError occured when trying to send a message to id", id, "\n",err);
+                    delete connections[id];
+                } else {
+                    console.log("\tmsg -> " + id);
+                }
+
+            });
+        } catch(e) {
+            console.log("\n\nERROR in connection " + id, "\n", e, "\n", connections);
+            delete connections[id];
+        }
+
     }
 
     function sendMessageToAllConnections(msg) {

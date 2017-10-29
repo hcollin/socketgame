@@ -8,8 +8,15 @@ export default class Game{
         this.data = {};
 
         this.connection = new Connection();
+
+        this.connection.onMessage((msg) => {
+           console.log("Incoming transmission...\n", msg.data);
+        });
+
         this.connection.open().then(() => {
 
         });
     }
+
+
 }

@@ -28,6 +28,12 @@ export default function Connection() {
                    reject();
                }
             };
+
+            socket.onmessage = reciever;
+
+            window.onbeforeunload = function(event) {
+                socket.close();
+            };
         });
     }
 
@@ -62,6 +68,6 @@ export default function Connection() {
         open: openNewConnection,
         close: closeConnection,
         send: sendData,
-        on: null
+        onMessage: defineReciever
     };
 }
