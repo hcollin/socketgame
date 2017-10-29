@@ -13,7 +13,7 @@ module.exports = function(serverUrl, serverPort) {
     };
 
     let messageCallback = function(connectionId, message) {
-        console.log("Message from Id " + connectionId, ":\n", message);
+        console.log("DEFAULT CALLBACK: Message from Id " + connectionId, ":\n", message);
     };
 
     function startSocketServer() {
@@ -51,8 +51,8 @@ module.exports = function(serverUrl, serverPort) {
     }
 
     function sendMessageToId(id, msg) {
-
         try {
+            msg = JSON.stringify(msg);
             connections[id].send(msg, function(err) {
                 if(err) {
                     console.log("\nError occured when trying to send a message to id", id, "\n",err);

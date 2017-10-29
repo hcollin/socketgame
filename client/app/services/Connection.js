@@ -47,7 +47,8 @@ export default function Connection() {
     }
 
     function sendData(data) {
-        dataQueue.push(data);
+
+        dataQueue.push(JSON.stringify(data));
         _sendQueue();
     }
 

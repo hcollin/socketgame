@@ -6,8 +6,6 @@ import PlayerView from './PlayerView';
 
 import Game from '../services/Game';
 
-
-
 export default class App extends React.Component {
 
     constructor(props) {
@@ -15,13 +13,21 @@ export default class App extends React.Component {
 
         this.state = {
             viewMode: null,
-            playerNo: null,
-            game: new Game()
+            playerNo: null
         };
 
         this.selectBoardMode = this.selectBoardMode.bind(this);
         this.selectPlayerMode = this.selectPlayerMode.bind(this);
         this.selectPlayerNo = this.selectPlayerNo.bind(this);
+
+    }
+
+    componentDidMount() {
+        this.game = new Game();
+
+
+
+
 
     }
 
@@ -81,22 +87,4 @@ export default class App extends React.Component {
             </div>
         )
     }
-
-    // componentDidMount() {
-    //   const search_value = 'your-search-terms-here';
-    //   DB.search(search_value, (items) => {
-    //     this.setState({items: items});
-    //   });
-    // }
-
-    // render() {
-    //   const items = this.state.items.map(
-    //     (item, i) => (<h1 key={i}>{item.name}</h1>)
-    //   );
-    //   return (
-    //     <div>
-    //       {items}
-    //     </div>
-    //   );
-    // }
 }

@@ -1,22 +1,41 @@
 
 import Connection from './Connection';
 
-export default class Game{
 
-    constructor() {
+export default function Game() {
 
-        this.data = {};
+    let gameInfo = {};
+    let connection = new Connection();
 
-        this.connection = new Connection();
+    connection.onMessage((msg) => {
+        handleMessageAction(JSON.parse(msg.data));
+    });
 
-        this.connection.onMessage((msg) => {
-           console.log("Incoming transmission...\n", msg.data);
-        });
+    connection.open().then(() => {
+        updateBasicGameInfo();
+    });
 
-        this.connection.open().then(() => {
 
+    function handleMessageAction(action) {
+        console.log("ACTION: ", action.action);
+        switch(action.action) {
+            case "gameInfo":
+                gameInfo = action.data;
+                break;
+            default:
+                break;
+        }
+    }
+
+    function updateBasicGameInfo() {
+        connection.send({
+            action: "gameInfo"
         });
     }
 
+    return {
+        forceUpdate: updateBasicGameInfo
+    };
 
 }
+
